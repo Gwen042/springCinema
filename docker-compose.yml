@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+    #######################################
+    #               Database              #
+    #######################################
+    mongodb:
+        image: mongo:latest
+        container_name: "mongodb"
+        ports:
+            - 27017:27017
+    
+    #######################################
+    #            Mongo Express            #
+    #######################################
+    mongoexpress:
+        image: "mongo-express:latest"
+        container_name: "mongo_express"
+        ports:
+            - "9001:8081"
+        links:
+            - mongodb:mongo
