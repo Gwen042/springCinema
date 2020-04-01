@@ -19,7 +19,7 @@ public class CinemaController {
 	private CinemaService service;
 	
 	@PostMapping("")
-	public void saveCinema(@RequestBody CinemaDTO data) {
-		this.service.saveCinema(data);
+	public void generate(@RequestBody CinemaDTO data) {
+		this.service.generate(data);
 	}
 }
