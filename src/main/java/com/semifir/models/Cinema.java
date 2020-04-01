@@ -22,7 +22,7 @@ public class Cinema {
 	private String nom;
 	private String adresse;
 	
-	@DBRef
-	private List<Salle> salles = new ArrayList<>();
+	//@DBRef
+	//private List<Salle> salles = new ArrayList<>();
 	
 }

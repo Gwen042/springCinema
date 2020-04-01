@@ -16,10 +16,10 @@ import com.semifir.services.CinemaService;
 public class CinemaController {
 
 	@Autowired
-	private CinemaService service;
+	private CinemaService services;
 	
 	@PostMapping("")
-	public void generate(@RequestBody CinemaDTO data) {
-		this.service.generate(data);
+	public CinemaDTO save(@RequestBody CinemaDTO data) {
+		return this.services.save(data);
 	}
 }

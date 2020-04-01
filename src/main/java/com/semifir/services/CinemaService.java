@@ -5,8 +5,8 @@ import com.semifir.models.Cinema;
 
 public interface CinemaService {
 
-	public Cinema saveCinema(Cinema entity);
+	public Cinema save(Cinema data);
 
-	public CinemaDTO generate(CinemaDTO data);
+	public CinemaDTO save(CinemaDTO data);
 
 }

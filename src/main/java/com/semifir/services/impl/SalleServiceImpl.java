@@ -13,8 +13,8 @@ public class SalleServiceImpl implements SalleService {
 	@Autowired private SalleRepository repo;
 	
 	@Override
-	public Salle saveSalle(Salle entity) {
-		return this.repo.save(entity);
+	public Salle save(Salle data) {
+		return this.repo.save(data);
 	}
 
 }
