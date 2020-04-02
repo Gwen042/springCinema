@@ -13,7 +13,7 @@ public interface SeanceRepository extends MongoRepository<Seance, String> {
 
 	
 	public List<Seance> findAllByFilmId(String id);
-	public List<Seance> findAllByFilmIn(Iterable<Film> films);
+//	public List<Seance> findAllByFilmIn(Iterable<Film> films);
 	public List<Seance> findAllByFilm(Film film);
 
 

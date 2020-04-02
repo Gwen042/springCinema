@@ -17,9 +17,9 @@ public interface SeanceService {
 	public void delete(String id);
 	public List<Seance> findAllByFilmId(String id);
 	Assister assister(String id, String cid);
-	public float recetteFilm(Film film);
+	//public float recetteFilm(Film film);
 	float recetteSeance(String id);
-	public List<Seance> findByDateBetween(LocalDateTime min, LocalDateTime max);
+	//public List<Seance> findByDateBetween(LocalDateTime min, LocalDateTime max);
 	public int placeLibre(String id);
 	
 

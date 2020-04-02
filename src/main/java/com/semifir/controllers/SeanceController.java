@@ -67,17 +67,11 @@ public class SeanceController {
 	public float recetteSeance(@PathVariable String id){
 		return this.services.recetteSeance(id);
 	}
-	
-/*	
-	@GetMapping("{id}/recette")
-	public float recetteFilm(@PathVariable String id){
-		return this.services.recetteFilm(id);
+
+	@GetMapping("{id}/places")
+	public int placeLibre(@PathVariable String id){
+		return this.services.placeLibre(id);
 	}
-*/
-//	@GetMapping("{id}/places")
-//	public Optional<Seance> (@PathVariable String id){
-//		return this.services.(id);
-//	}
 	
 //	@GetMapping("horaire/{min}/{max}")
 //	public Optional<Seance> (@PathVariable String id){

@@ -67,7 +67,7 @@ public class SeanceServiceImpl implements SeanceService {
 				Client c = optC.get();
 				res = new Assister(this.calculPrix(seance, c), c);
 				this.save(seance);
-				//this.assisterRepo.save(res);
+				this.assisterRepo.save(res);
 			}
 		}
 		return res;
@@ -96,7 +96,7 @@ public class SeanceServiceImpl implements SeanceService {
 	}
 
 	//Calcul de la recette du film:
-	
+/*	
 	@Override
 	public float recetteFilm(Film film) {
 		List<Seance> seances = this.repo.findAllByFilm(film);
@@ -106,7 +106,7 @@ public class SeanceServiceImpl implements SeanceService {
 			}).sum();
 		}).sum();
 	}
-	
+*/	
 	//Calcul de la recette d'une séance:
 	
 	@Override
