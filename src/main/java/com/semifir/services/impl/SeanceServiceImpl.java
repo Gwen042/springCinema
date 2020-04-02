@@ -1,6 +1,7 @@
 package com.semifir.services.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,11 +53,6 @@ public class SeanceServiceImpl implements SeanceService {
 	public void delete(String id) {
 		this.repo.deleteById(id);
 	}
-
-	@Override
-	public List<Seance> findAllByFilmTitre(String id) {
-		return this.repo.findAllByFilmTitre(id);
-	}
 	
 	@Override
 	public Assister assister(String id, String cid) {
@@ -76,7 +72,9 @@ public class SeanceServiceImpl implements SeanceService {
 		}
 		return res;
 	}
-
+	
+	//calcul du prix dans Assister:
+	
 	private float calculPrix(Seance s, Client c) {
 		float resultPrix = 10;
 		
@@ -97,7 +95,9 @@ public class SeanceServiceImpl implements SeanceService {
 		return resultPrix;
 	}
 
+	//Calcul de la recette du film:
 	
+	@Override
 	public float recetteFilm(Film film) {
 		List<Seance> seances = this.repo.findAllByFilm(film);
 		return (float) seances.stream().mapToDouble(s -> {
@@ -107,25 +107,50 @@ public class SeanceServiceImpl implements SeanceService {
 		}).sum();
 	}
 	
+	//Calcul de la recette d'une séance:
 	
-//	@Override
-//	public Film findByTitre(String titre) {
-//		return this.repo.findByTitre(titre);
-//	}
-
+	@Override
+	public float recetteSeance(String id) {
+		Optional<Seance> optS = this.findById(id);
+		float recetteSeance = 0;
+		if(optS.isPresent()) {
+			Seance s = optS.get();
+			List<Assister> clients = s.getClients();
+			
+			for(Assister a : clients) {
+				recetteSeance += a.getPrix();
+			}
+		}
+		return recetteSeance;
+	}
 	
-//	@Override
-//	public Seance addClient(String sid, String cid) {
-//		Seance res = null;
-//		Optional<Seance> optS = this.repo.findById(sid);
-//		if(optS.isPresent()) {
-//			Seance s = optS.get();
-//			Optional<Assister> optC = clientService.findById(cid);
-//			if(optC.isPresent()) {
-//				s.add(optC.get());
-//				res = s;
-//				this.save(s);
-//			}
-//		}
-//	}
+	//Trouver les séances pour un film (ici id)...A revoir(avec le titre?):
+	
+	@Override
+	public List<Seance>findAllByFilmId(String id) {
+		return this.repo.findAllByFilmId(id);
+	}
+	
+	//Trouver le nb de places libres:
+	
+	@Override
+	public int placeLibre(String id) {
+		Optional<Seance> optS = this.findById(id);
+		int pl = 0;
+		if(optS.isPresent()) {
+			Seance s = optS.get();
+			if(s.getSalle() != null) {
+				pl = s.getSalle().getPlace() - s.getClients().size();
+			}
+		}
+		return pl;
+	}
+	
+	//Trouver des séances dans une plage horaire:
+/*	
+	@Override
+	public List<Seance> findByDateBetween(LocalDateTime min, LocalDateTime max){
+		return this.repo.findByDateBetween(min, max);
+	}
+*/
 }

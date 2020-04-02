@@ -11,8 +11,9 @@ import com.semifir.models.Seance;
 
 public interface SeanceRepository extends MongoRepository<Seance, String> {
 
-	public List<Seance> findAllByFilmTitre(String id);
-
+	
+	public List<Seance> findAllByFilmId(String id);
+	public List<Seance> findAllByFilmIn(Iterable<Film> films);
 	public List<Seance> findAllByFilm(Film film);
 
 

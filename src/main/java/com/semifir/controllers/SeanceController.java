@@ -62,6 +62,12 @@ public class SeanceController {
 	private Assister assister (@PathVariable String id, @PathVariable String cid) {
 		return this.services.assister(id, cid);
 	}
+	
+	@GetMapping("{id}/recette")
+	public float recetteSeance(@PathVariable String id){
+		return this.services.recetteSeance(id);
+	}
+	
 /*	
 	@GetMapping("{id}/recette")
 	public float recetteFilm(@PathVariable String id){
@@ -78,9 +84,9 @@ public class SeanceController {
 //		return this.services.(id);
 //	}
 	
-	@GetMapping("film/{titre}")
-	public List<Seance> findAllByFilmTitre(@PathVariable String titre){
-		return this.services.findAllByFilmTitre(titre);
+	@GetMapping("film/{id}")
+	public List<Seance> findAllByFilmId(@PathVariable String id){
+		return this.services.findAllByFilmId(id);
 	}
 	
 
