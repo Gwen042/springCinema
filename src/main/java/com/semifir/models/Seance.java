@@ -1,6 +1,7 @@
 package com.semifir.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,12 @@ public class Seance {
 
 	@Id
 	private String id;
+	@DBRef
 	private Film film;
-	private LocalDate date;
+	private LocalDateTime horaire;
+	@DBRef
 	private List<Assister> clients;
+	@DBRef
 	private Salle salle;
 	private String type;
 	

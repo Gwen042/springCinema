@@ -21,13 +21,16 @@ public class CinemaServiceImpl implements CinemaService {
 	
 	@Override
 	public CinemaDTO save(CinemaDTO data) {
+		//génère cinema
 		data.setCinema(this.save(data.getCinema()));
+		//génère salles
 		for (Salle salle: data.getSalles()) {
 			salle.setCinema(data.getCinema());
 			salle.setId(this.salleService.save(salle).getId());
 		}
 		return data;
 	}
+
 
 	@Override
 	public Cinema save(Cinema data) {

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.semifir.models.Assister;
+import com.semifir.models.Cinema;
+import com.semifir.models.Film;
 import com.semifir.models.Seance;
 import com.semifir.services.SeanceService;
 
@@ -55,11 +58,16 @@ public class SeanceController {
 		return this.services.findById(id);
 	}
 	
-//	@GetMapping("{id}/recette")
-//	public Optional<Seance> (@PathVariable String id){
-//		return this.services.(id);
-//	}
-
+	@PostMapping("{id}/assister/{cid}")
+	private Assister assister (@PathVariable String id, @PathVariable String cid) {
+		return this.services.assister(id, cid);
+	}
+/*	
+	@GetMapping("{id}/recette")
+	public float recetteFilm(@PathVariable String id){
+		return this.services.recetteFilm(id);
+	}
+*/
 //	@GetMapping("{id}/places")
 //	public Optional<Seance> (@PathVariable String id){
 //		return this.services.(id);
@@ -70,9 +78,11 @@ public class SeanceController {
 //		return this.services.(id);
 //	}
 	
-//	@GetMapping("film/{nom}")
-//	public  (@PathVariable String nom){
-//		return this.services.(nom);
-//	}
+	@GetMapping("film/{titre}")
+	public List<Seance> findAllByFilmTitre(@PathVariable String titre){
+		return this.services.findAllByFilmTitre(titre);
+	}
+	
+
 
 }

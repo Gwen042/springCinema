@@ -17,6 +17,13 @@ public class Assister {
 	@Id
 	private String id;
 	private float prix;
+	@DBRef
 	private Client client;
+	
+	public Assister(float prix, Client client) {
+		super();
+		this.prix = prix;
+		this.client = client;
+	}
 
 }
