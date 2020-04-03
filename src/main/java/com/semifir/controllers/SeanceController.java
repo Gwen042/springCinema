@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.semifir.models.Assister;
-import com.semifir.models.Cinema;
-import com.semifir.models.Film;
 import com.semifir.models.Seance;
 import com.semifir.services.SeanceService;
 
@@ -76,8 +74,9 @@ public class SeanceController {
 	}
 	
 	@GetMapping("horaire/{min}/{max}")
-	public List<Seance> findByDateBeetween(@PathVariable LocalDateTime min, @PathVariable LocalDateTime max){
-		return this.services.findByDateBetween(min, max);
+	public List<Seance> findAllByDateBeetween(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime min, 
+											@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime max){
+		return this.services.findAllByDateBetween(min, max);
 	}
 	
 	@GetMapping("film/{id}")
@@ -85,6 +84,6 @@ public class SeanceController {
 		return this.services.findAllByFilmId(id);
 	}
 	
-
+	
 
 }

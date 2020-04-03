@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.semifir.models.Film;
 import com.semifir.services.FilmService;
-import com.semifir.services.SeanceService;
 
 @RestController
 @CrossOrigin
@@ -25,8 +24,6 @@ public class FilmController {
 
 	@Autowired
 	private FilmService services;
-	@Autowired
-	private SeanceService seanceService;
 	
 	@GetMapping("")
 	public List<Film> findAll(){

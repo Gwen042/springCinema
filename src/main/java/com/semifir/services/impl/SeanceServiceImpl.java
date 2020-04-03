@@ -25,7 +25,7 @@ public class SeanceServiceImpl implements SeanceService {
 	@Autowired private SeanceRepository repo;
 	@Autowired private AssisterRepository assisterRepo;
 	@Autowired private ClientService clientService;
-	@Autowired private SeanceService seanceService;
+
 	
 	@Override
 	public Seance save(Seance entity) {
@@ -164,8 +164,9 @@ public class SeanceServiceImpl implements SeanceService {
 	//Trouver des séances dans une plage horaire:
 	
 	@Override
-	public List<Seance> findByDateBetween(LocalDateTime min, LocalDateTime max){
-		return this.repo.findByDateBetween(min, max);
+	public List<Seance> findAllByDateBetween(LocalDateTime min, LocalDateTime max){
+		return this.repo.findAllByDateBetween(min, max);
 	}
-
+	
+	
 }

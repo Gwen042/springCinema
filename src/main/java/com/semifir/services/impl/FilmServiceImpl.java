@@ -2,7 +2,6 @@ package com.semifir.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +65,11 @@ public class FilmServiceImpl implements FilmService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le film d'id: "+id+" n'existe pas");
 		}
 		return recette;
-	}	
+	}
 
+	@Override
+	public List<Film> findAllByGenre(String genre) {
+		return this.repo.findAllByGenre(genre);
+	}	
 	
 }

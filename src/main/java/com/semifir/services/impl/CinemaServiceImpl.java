@@ -7,7 +7,6 @@ import com.semifir.DTO.CinemaDTO;
 import com.semifir.models.Cinema;
 import com.semifir.models.Salle;
 import com.semifir.repositories.CinemaRepository;
-import com.semifir.repositories.SalleRepository;
 import com.semifir.services.CinemaService;
 import com.semifir.services.SalleService;
 
