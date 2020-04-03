@@ -1,8 +1,5 @@
 package com.semifir.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,6 +20,5 @@ public class Salle {
 	@DBRef 
 	private Cinema cinema;
 	private int place;
-
 
 }

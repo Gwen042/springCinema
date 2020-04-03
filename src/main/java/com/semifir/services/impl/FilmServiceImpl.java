@@ -6,7 +6,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.semifir.models.Film;
 import com.semifir.models.Seance;
@@ -59,7 +61,9 @@ public class FilmServiceImpl implements FilmService {
 		if(optF.isPresent()) {
 			Film f = optF.get();
 			Stream<Seance> seances = seanceService.findAllByFilmId(f.getId()).stream();
-			recette = (float) seances.mapToDouble(s -> this.seanceService.recetteSeance(id)).sum();
+			recette = (float) seances.mapToDouble(s -> this.seanceService.recetteSeance(s.getId())).sum();
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le film d'id: "+id+" n'existe pas");
 		}
 		return recette;
 	}	

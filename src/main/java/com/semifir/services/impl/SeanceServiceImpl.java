@@ -6,16 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.semifir.models.Assister;
-import com.semifir.models.Cinema;
 import com.semifir.models.Client;
-import com.semifir.models.Film;
 import com.semifir.models.Seance;
 import com.semifir.repositories.AssisterRepository;
-import com.semifir.repositories.ClientRepository;
-import com.semifir.repositories.FilmRepository;
 import com.semifir.repositories.SeanceRepository;
 import com.semifir.services.ClientService;
 import com.semifir.services.SeanceService;
@@ -66,9 +64,32 @@ public class SeanceServiceImpl implements SeanceService {
 			if (optC.isPresent()) {
 				Client c = optC.get();
 				res = new Assister(this.calculPrix(seance, c), c);
-				this.save(seance);
-				this.assisterRepo.save(res);
+				
+				//Restriction d'âge:
+				int ageLimite = seance.getFilm().getAgeLimite();
+				
+				if(LocalDate.now().compareTo(c.getNaissance()) > ageLimite) {
+					
+					//Restriction nb de places:
+					if (placeLibre(id) > 0) {
+						seance.getClients().add(res);
+						this.save(seance);
+						this.assisterRepo.save(res);
+						
+					} else {
+						throw new ResponseStatusException(HttpStatus.NOT_FOUND, "la seance d'id: "+id+" n'a plus de places libres");
+					}
+						
+				} else {
+					throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le client d'id: "+cid+" est trop jeune. L'âge limite du film est de "+ageLimite+" ans.");
+				}
+
+			} else {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "le client d'id: "+cid+" n'existe pas");
 			}
+			
+		} else { 
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "la séance d'id: "+id+" n'existe pas");
 		}
 		return res;
 	}
@@ -87,7 +108,7 @@ public class SeanceServiceImpl implements SeanceService {
 			resultPrix += 8;
 		
 		//prix en fonction de l'age et du tarif étudiant du client
-		if (c.getNaissance().compareTo(LocalDate.now()) < 10)
+		if (LocalDate.now().compareTo(c.getNaissance()) < 10)
 			resultPrix -= 4;
 		if (c.isEtudiant())
 			resultPrix -= 2;
@@ -95,18 +116,6 @@ public class SeanceServiceImpl implements SeanceService {
 		return resultPrix;
 	}
 
-	//Calcul de la recette du film:
-/*	
-	@Override
-	public float recetteFilm(Film film) {
-		List<Seance> seances = this.repo.findAllByFilm(film);
-		return (float) seances.stream().mapToDouble(s -> {
-			return s.getClients().stream().mapToDouble(c -> {
-				return c.getPrix();
-			}).sum();
-		}).sum();
-	}
-*/	
 	//Calcul de la recette d'une séance:
 	
 	@Override
@@ -120,6 +129,8 @@ public class SeanceServiceImpl implements SeanceService {
 			for(Assister a : clients) {
 				recetteSeance += a.getPrix();
 			}
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "la séance d'id: "+id+" n'existe pas");
 		}
 		return recetteSeance;
 	}
@@ -141,16 +152,20 @@ public class SeanceServiceImpl implements SeanceService {
 			Seance s = optS.get();
 			if(s.getSalle() != null) {
 				pl = s.getSalle().getPlace() - s.getClients().size();
+			} else {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "la séance d'id: "+id+" n'a pas de salle");
 			}
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "la séance d'id: "+id+" n'existe pas");
 		}
 		return pl;
 	}
 	
 	//Trouver des séances dans une plage horaire:
-/*	
+	
 	@Override
 	public List<Seance> findByDateBetween(LocalDateTime min, LocalDateTime max){
 		return this.repo.findByDateBetween(min, max);
 	}
-*/
+
 }

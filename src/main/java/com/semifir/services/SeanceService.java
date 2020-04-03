@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.semifir.models.Assister;
-import com.semifir.models.Film;
 import com.semifir.models.Seance;
 
 public interface SeanceService {
@@ -19,8 +18,8 @@ public interface SeanceService {
 	Assister assister(String id, String cid);
 	//public float recetteFilm(Film film);
 	float recetteSeance(String id);
-	//public List<Seance> findByDateBetween(LocalDateTime min, LocalDateTime max);
 	public int placeLibre(String id);
+	public List<Seance> findByDateBetween(LocalDateTime min, LocalDateTime max);
 	
 
 }

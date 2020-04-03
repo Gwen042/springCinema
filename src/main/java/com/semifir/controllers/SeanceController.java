@@ -1,9 +1,11 @@
 package com.semifir.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,10 +75,10 @@ public class SeanceController {
 		return this.services.placeLibre(id);
 	}
 	
-//	@GetMapping("horaire/{min}/{max}")
-//	public Optional<Seance> (@PathVariable String id){
-//		return this.services.(id);
-//	}
+	@GetMapping("horaire/{min}/{max}")
+	public List<Seance> findByDateBeetween(@PathVariable LocalDateTime min, @PathVariable LocalDateTime max){
+		return this.services.findByDateBetween(min, max);
+	}
 	
 	@GetMapping("film/{id}")
 	public List<Seance> findAllByFilmId(@PathVariable String id){
