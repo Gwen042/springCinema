@@ -60,4 +60,8 @@ public class FilmController {
 		return this.services.findByIdRecette(id);
 	}
 	
+	@GetMapping("titres/{titre}")
+	public List<Film> findAllByTitre(@PathVariable String titre) {
+		return this.services.findAllByTitre(titre);
+	}
 }

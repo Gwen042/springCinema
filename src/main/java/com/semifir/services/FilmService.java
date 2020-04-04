@@ -17,5 +17,6 @@ public interface FilmService {
 	//public List<Film> findAllByGenre(String genre);
 	public List<Film> findAllByGenre(String genre);
 	public List<Film> findAllByAgeLimite(int ageLimite);
+	public Optional<Film> findByTitre(String titre);
 
 }

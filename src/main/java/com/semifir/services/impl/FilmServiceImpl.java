@@ -1,5 +1,6 @@
 package com.semifir.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -37,8 +38,8 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public List<Film> findAllByTitre(String titre) {
-		return this.repo.findAllByTitre(titre);
+	public Optional<Film> findByTitre(String titre) {
+		return this.repo.findByTitre(titre);
 	}
 
 	@Override
@@ -78,6 +79,20 @@ public class FilmServiceImpl implements FilmService {
 		return this.repo.findAllByAgeLimite(ageLimite);
 	}
 
+	//Trouver des films en fonction de leurs titres:
+	
+	@Override
+	public List<Film> findAllByTitre(String titre) {
+		List<Film> films = this.findAll();
+		List<Film> filmsTitre = new ArrayList<>();
+		
+		for(Film f : films) {
+			if(f.getTitre().contains(titre)) {
+				filmsTitre.add(f);
+			}
+		}
+		return filmsTitre;
+	}
 
 	
 }
