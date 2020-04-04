@@ -23,6 +23,7 @@ public interface SeanceService {
 	public List<Seance> seanceByFilmGenre(String genre);
 	public List<Seance> seanceByFilmAgeLimite(int ageLimite);
 	public List<Seance> findAllByType(String type);
+	public List<Seance> seanceByCritere(String genre, LocalDateTime min, LocalDateTime max, int ageLimite, String type);
 
 	
 }

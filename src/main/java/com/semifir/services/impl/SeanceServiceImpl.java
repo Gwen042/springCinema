@@ -202,4 +202,28 @@ public class SeanceServiceImpl implements SeanceService {
 	public List<Seance> findAllByType(String type){
 		return this.repo.findAllByType(type);
 	}
+
+	@Override
+	public List<Seance> seanceByCritere(String genre, LocalDateTime min, LocalDateTime max, int ageLimite, String type) {
+		List<Seance> seancesGenre = this.seanceByFilmGenre(genre);
+		List<Seance> seancesDate = this.findAllByDateBetween(min, max);
+		List<Seance> seancesAge = this.seanceByFilmAgeLimite(ageLimite);
+		List<Seance> seancesType = this.findAllByType(type);
+		
+		List<Seance> seances = new ArrayList<>();
+		
+		//Comparaison des id de chaque liste:
+		for(Seance sg : seancesGenre) {
+			for(Seance sd : seancesDate) {
+				for(Seance sa : seancesAge) {
+					for(Seance st : seancesType) {
+						if(sg.getId().equals(sd.getId()) && sg.getId().equals(sa.getId()) && sg.getId().equals(st.getId())) {
+							seances.add(sg);
+						};
+					}
+				}
+			}
+		}
+		return seances;
+	}
 }

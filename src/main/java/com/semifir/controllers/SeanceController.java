@@ -98,4 +98,11 @@ public class SeanceController {
 	public List<Seance> findAllByType(@PathVariable String type){
 		return this.services.findAllByType(type);
 	}
+	
+	@GetMapping("criteres/{genre}/{min}/{max}/{ageLimite}/{type}")
+	public List<Seance> seanceByCriteres(@PathVariable String genre, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime min,
+										@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime max, 
+										@PathVariable int ageLimite, @PathVariable String type){
+		return this.services.seanceByCritere(genre, min, max, ageLimite, type);
+	}
 }
