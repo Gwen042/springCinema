@@ -67,9 +67,12 @@ public class FilmServiceImpl implements FilmService {
 		return recette;
 	}
 
+
 	@Override
 	public List<Film> findAllByGenre(String genre) {
 		return this.repo.findAllByGenre(genre);
-	}	
+	}
+
+
 	
 }

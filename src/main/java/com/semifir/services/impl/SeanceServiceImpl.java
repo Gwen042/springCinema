@@ -2,6 +2,7 @@ package com.semifir.services.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +13,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.semifir.models.Assister;
 import com.semifir.models.Client;
+import com.semifir.models.Film;
 import com.semifir.models.Seance;
 import com.semifir.repositories.AssisterRepository;
 import com.semifir.repositories.SeanceRepository;
 import com.semifir.services.ClientService;
+import com.semifir.services.FilmService;
 import com.semifir.services.SeanceService;
 
 
@@ -25,6 +28,7 @@ public class SeanceServiceImpl implements SeanceService {
 	@Autowired private SeanceRepository repo;
 	@Autowired private AssisterRepository assisterRepo;
 	@Autowired private ClientService clientService;
+	@Autowired private FilmService filmService;
 
 	
 	@Override
@@ -168,5 +172,16 @@ public class SeanceServiceImpl implements SeanceService {
 		return this.repo.findAllByDateBetween(min, max);
 	}
 	
+	//Trouver des séances par le genre du film:
+	
+	@Override
+	public List<Seance> seanceByFilmGenre(String genre) {
+        List<Film> film = this.filmService.findAllByGenre(genre);
+        List<Seance> seances = new ArrayList<>();
+        for (Film f : film) {
+        	seances.addAll(this.repo.findAllByFilmId(f.getId()));
+        }
+        return seances;
+    }
 	
 }

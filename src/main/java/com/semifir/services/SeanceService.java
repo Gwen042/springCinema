@@ -20,6 +20,7 @@ public interface SeanceService {
 	float recetteSeance(String id);
 	public int placeLibre(String id);
 	public List<Seance> findAllByDateBetween(LocalDateTime min, LocalDateTime max);
+	public List<Seance> seanceByFilmGenre(String genre);
 
 	
 }
