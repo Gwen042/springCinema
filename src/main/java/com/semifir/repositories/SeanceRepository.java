@@ -15,6 +15,7 @@ public interface SeanceRepository extends MongoRepository<Seance, String> {
 	//public List<Seance> findAllByFilmIn(Iterable<Film> films);
 	public List<Seance> findAllByFilm(Film film);
 	public List<Seance> findAllByDateBetween(LocalDateTime min, LocalDateTime max);
+	public List<Seance> findAllByType(String type);
 
 
 }

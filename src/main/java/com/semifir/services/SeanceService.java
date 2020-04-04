@@ -21,6 +21,8 @@ public interface SeanceService {
 	public int placeLibre(String id);
 	public List<Seance> findAllByDateBetween(LocalDateTime min, LocalDateTime max);
 	public List<Seance> seanceByFilmGenre(String genre);
+	public List<Seance> seanceByFilmAgeLimite(int ageLimite);
+	public List<Seance> findAllByType(String type);
 
 	
 }

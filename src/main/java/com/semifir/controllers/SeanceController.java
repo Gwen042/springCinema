@@ -84,10 +84,18 @@ public class SeanceController {
 		return this.services.findAllByFilmId(id);
 	}
 	
-	@GetMapping("films/{genre}")
+	@GetMapping("genre/{genre}")
 	public List<Seance> seanceByFilmGenre(@PathVariable String genre){
 		return this.services.seanceByFilmGenre(genre);
 	}
 	
-
+	@GetMapping("ageLimite/{ageLimite}")
+	public List<Seance> seanceByFilmAgeLimite(@PathVariable int ageLimite){
+		return this.services.seanceByFilmAgeLimite(ageLimite);
+	}
+	
+	@GetMapping("type/{type}")
+	public List<Seance> findAllByType(@PathVariable String type){
+		return this.services.findAllByType(type);
+	}
 }

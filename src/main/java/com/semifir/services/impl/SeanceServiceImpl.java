@@ -172,7 +172,7 @@ public class SeanceServiceImpl implements SeanceService {
 		return this.repo.findAllByDateBetween(min, max);
 	}
 	
-	//Trouver des séances par le genre du film:
+	//Trouver des séances en fonction du genre du film:
 	
 	@Override
 	public List<Seance> seanceByFilmGenre(String genre) {
@@ -184,4 +184,22 @@ public class SeanceServiceImpl implements SeanceService {
         return seances;
     }
 	
+	//Trouver des séances en fonction de la restriction d'age:
+	
+	@Override
+	public List<Seance> seanceByFilmAgeLimite(int ageLimite) {
+        List<Film> film = this.filmService.findAllByAgeLimite(ageLimite);
+        List<Seance> seances = new ArrayList<>();
+        for (Film f : film) {
+        	seances.addAll(this.repo.findAllByFilmId(f.getId()));
+        }
+        return seances;
+    }
+	
+	//Trouver des séances en fonction du type de séance:
+	
+	@Override
+	public List<Seance> findAllByType(String type){
+		return this.repo.findAllByType(type);
+	}
 }

@@ -73,6 +73,11 @@ public class FilmServiceImpl implements FilmService {
 		return this.repo.findAllByGenre(genre);
 	}
 
+	@Override
+	public List<Film> findAllByAgeLimite(int ageLimite) {
+		return this.repo.findAllByAgeLimite(ageLimite);
+	}
+
 
 	
 }
