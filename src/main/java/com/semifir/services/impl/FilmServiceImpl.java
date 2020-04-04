@@ -87,11 +87,15 @@ public class FilmServiceImpl implements FilmService {
 		List<Film> filmsTitre = new ArrayList<>();
 		
 		for(Film f : films) {
-			if(f.getTitre().contains(titre)) {
+			if(f.getTitre().toLowerCase().contains(titre.toLowerCase())) {
 				filmsTitre.add(f);
-			}
+			} 
 		}
-		return filmsTitre;
+		if(filmsTitre.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le film: '"+titre+"' n'existe pas");
+		} else {
+			return filmsTitre;
+		}
 	}
 
 	

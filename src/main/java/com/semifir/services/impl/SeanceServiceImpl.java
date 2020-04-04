@@ -169,7 +169,11 @@ public class SeanceServiceImpl implements SeanceService {
 	
 	@Override
 	public List<Seance> findAllByDateBetween(LocalDateTime min, LocalDateTime max){
+		if(this.repo.findAllByDateBetween(min, max).isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Il n'y a pas de séances dans cette plage horaire");
+		} else {
 		return this.repo.findAllByDateBetween(min, max);
+		}
 	}
 	
 	//Trouver des séances en fonction du genre du film:
@@ -224,6 +228,10 @@ public class SeanceServiceImpl implements SeanceService {
 				}
 			}
 		}
+		if(seances.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune séance n'a été trouvée selon ces critères.");
+		} else {
 		return seances;
+		}
 	}
 }
